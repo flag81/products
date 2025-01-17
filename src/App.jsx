@@ -690,6 +690,35 @@ if (!productId || !keyword) {
       }
     };
 
+// write function to call api updateProductPRICES update the product old price, new price product id and new values for a given product in the database table products
+
+const updateProductPrices = async (productId, oldPrice, newPrice) => {
+  try {
+    const response = await fetch('http://localhost:3000/updateProductPrices', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId, oldPrice, newPrice }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log('result:', result);
+      getAllProducts();
+    }
+  }
+  catch (error) {
+    console.error('Error updating product prices:', error);
+  }
+};
+
+
+
+
+
+
     const handleDeleteProduct = async (productId) => {
       try {
 

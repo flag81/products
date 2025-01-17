@@ -653,6 +653,30 @@ console.log(productList);
   }
   );
 
+ // add function to update the product old price, new price product id and new values for a given product in the database table products
+
+  app.put("/updateProductPrices", (req, res) => {
+
+    const { productId, oldPrice, newPrice } = req.body;
+
+    const q = `UPDATE products SET old_price = ?, new_price = ? WHERE productId = ?`;
+
+    db.query(q, [oldPrice, newPrice, productId], (err, result) => {
+
+      if (err) {
+        console.error('Error updating product prices:', err);
+        return res.status(500).json({ error: 'Failed to update product prices' });
+
+      }
+      res.status(200).json({ message: 'Product prices updated successfully' });
+    }
+    );
+
+  });
+  
+
+
+
 
   //write function to upload multiple images to cloudinary and return the public ids of the uploaded images , with all functionali os the upload endpoint
 
